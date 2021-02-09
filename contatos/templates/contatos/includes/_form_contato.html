@@ -1,0 +1,27 @@
+{% load widget_tweaks %}
+
+<div class="form-group">
+    {% if form.non_field_errors %}
+        {% for erro in form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ erro }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% for field in form %}
+    <div class="form-group">
+        {% if field.errors %}
+            {% for erro in field.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ erro }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+        {{ field|add_class:"form-control" }}
+    </div>
+{% endfor %}
+
+<button type="submit" class="btn btn-primary mb-5">Salvar</button>

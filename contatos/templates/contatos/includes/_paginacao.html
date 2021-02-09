@@ -1,0 +1,36 @@
+<nav aria-label="...">
+    <ul class="pagination">
+        {% if contatos.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?pagina={{ contatos.previous_page_number }}&termo={{ request.GET.termo }}">Anterior</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Anterior</span>
+            </li>
+        {% endif %}
+
+        {% for num_pagina in contatos.paginator.page_range %}
+            {% if contatos.number == num_pagina %}
+                <li class="page-item active">
+                    <span class="page-link">
+                        {{ num_pagina }}
+                        <span class="sr-only">(atual)</span>
+                    </span>
+                </li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?pagina={{ num_pagina }}&termo={{ request.GET.pagina }}">{{ num_pagina }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if contatos.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?pagina={{ contatos.next_page_number }}&termo={{ request.GET.pagina }}">Próximo</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">Próximo</span>
+        </li>
+        {% endif %}
+    </ul>
+</nav>

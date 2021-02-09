@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block 'titulo' %}Dashboard | {{ user.username }}{% endblock %}
+
+{% block 'conteudo' %}
+    {% include 'includes/_messages.html' %}
+
+    <h1 class="mt-3 mb-3 text-center">Olá {{ user.first_name }} {{ user.last_name }}</h1>
+
+    <p>Seu nome de usuário é: {{ user.username }}</p>
+    <p>Seu e-mail é: {{ user.email }}</p>
+{% endblock %}

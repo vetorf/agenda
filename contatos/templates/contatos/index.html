@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block 'titulo' %}Agenda{% endblock %}
+{% block 'conteudo' %}
+<h1 class="mt-5 text-center">Minha agenda</h1>
+
+{% include 'includes/_messages.html' %}
+
+{% comment %} BUSCA {% endcomment %}
+<form method="GET" action="{% url 'busca' %}">
+    <div class="form-group row">
+        <div class="col-12">
+            <input class="form-control" type="search" value="{{ request.GET.termo }}" id="search-input"
+                placeholder="Digite sua pesquisa" name="termo">
+        </div>
+    </div>
+</form>
+
+{% comment %} PAGINAÇÃO {% endcomment %}
+{% include 'contatos/includes/_paginacao.html' %}
+
+{% comment %} EXIBIÇÃO DOS CONTATOS {% endcomment %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Telefone</th>
+            <th>Categoria</th>
+            <th>Detalhes</th>
+            {% if user.is_authenticated %}
+            <th>Editar</th>
+            <th>Apagar</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for contato in contatos %}
+        <tr>
+            <td>{{ contato.nome }}</td>
+            <td>{{ contato.sobrenome }}</td>
+            <td>{{ contato.telefone }}</td>
+            <td>{{ contato.categoria.nome }}</td>
+            <td>
+                <a href="{% url 'detalhes' contato.id %}" style="color:green;">
+                    O
+                </a>
+            </td>
+            {% if user.is_authenticated %}
+            <td>
+                <a href="{% url 'editar_contato' contato.id %}">
+                    E
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'apagar_contato' contato.id %}" style="color:red;">
+                    X
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% comment %} PAGINAÇÃO {% endcomment %}
+{% include 'contatos/includes/_paginacao.html' %}
+
+{% endblock %}
