@@ -148,3 +148,8 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
     constants.DEBUG: 'alert-info',
 }
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
